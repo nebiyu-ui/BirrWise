@@ -27,15 +27,15 @@ uses: actions/checkout@v4
   - name: Install Android SDK components
     run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-  - name: Find project archive
+  - name: Check project archive
     run: |
-      find . -maxdepth 3 -type f
+      ls -la
       test -f BirrWise-Android-Starter.zip
 
   - name: Extract project
     run: unzip -q BirrWise-Android-Starter.zip -d extracted
 
-  - name: Find Gradle project
+  - name: Locate project
     run: |
       PROJECT_DIR=$(dirname "$(find extracted -name settings.gradle.kts -print -quit)")
       test -n "$PROJECT_DIR"
