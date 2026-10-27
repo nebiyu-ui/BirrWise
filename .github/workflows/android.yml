@@ -1,52 +1,52 @@
 name: Build BirrWise APK
 
 'on':
-workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout repository
-uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
- - name: Set up Java
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: '17'
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-  - name: Set up Gradle
-    uses: gradle/actions/setup-gradle@v4
-    with:
-      gradle-version: '8.9'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
-  - name: Set up Android SDK
-    uses: android-actions/setup-android@v3
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-  - name: Install Android SDK components
-    run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Install Android SDK components
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-  - name: Check project archive
-    run: |
-      ls -la
-      test -f BirrWise-Android-Starter.zip
+      - name: Check project archive
+        run: |
+          ls -la
+          test -f BirrWise-Android-Starter.zip
 
-  - name: Extract project
-    run: unzip -q BirrWise-Android-Starter.zip -d extracted
+      - name: Extract project
+        run: unzip -q BirrWise-Android-Starter.zip -d extracted
 
-  - name: Locate project
-    run: |
-      PROJECT_DIR=$(dirname "$(find extracted -name settings.gradle.kts -print -quit)")
-      test -n "$PROJECT_DIR"
-      echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+      - name: Locate project
+        run: |
+          SETTINGS=$(find extracted -name settings.gradle.kts -print -quit)
+          test -n "$SETTINGS"
+          echo "PROJECT_DIR=$(dirname "$SETTINGS")" >> "$GITHUB_ENV"
 
-  - name: Build APK
-    run: gradle -p "$PROJECT_DIR" assembleDebug
+      - name: Build APK
+        run: gradle -p "$PROJECT_DIR" assembleDebug
 
-  - name: Upload APK
-    uses: actions/upload-artifact@v4
-    with:
-      name: BirrWise-debug-APK
-      path: extracted/**/app/build/outputs/apk/debug/app-debug.apk
-      if-no-files-found: error
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BirrWise-debug-APK
+          path: extracted/**/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
