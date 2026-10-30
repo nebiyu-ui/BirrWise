@@ -43,6 +43,19 @@ jobs:
           test -n "$SETTINGS"
           echo "PROJECT_DIR=$(dirname "$SETTINGS")" >> "$GITHUB_ENV"
 
+      - name: Align Java target with Kotlin (temporary patch)
+        run: |
+          test -f "$PROJECT_DIR/app/build.gradle.kts"
+          {
+            echo ''
+            echo 'android {'
+            echo '    compileOptions {'
+            echo '        sourceCompatibility = JavaVersion.VERSION_17'
+            echo '        targetCompatibility = JavaVersion.VERSION_17'
+            echo '    }'
+            echo '}'
+          } >> "$PROJECT_DIR/app/build.gradle.kts"
+
       - name: Build debug APK
         run: gradle -p "$PROJECT_DIR" assembleDebug --stacktrace
 
