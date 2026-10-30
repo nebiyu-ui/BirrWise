@@ -1,0 +1,35 @@
+name: Inspect starter
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Report repo and starter contents
+        run: |
+          {
+            echo '## Repo root'
+            echo '```'
+            ls -la
+            echo '```'
+            for f in .github/workflows/*; do
+              echo "### $f"
+              echo '```yaml'
+              cat "$f"
+              echo '```'
+            done
+            mkdir /tmp/starter
+            unzip -q BirrWise-Android-Starter.zip -d /tmp/starter
+            echo '## Starter zip files'
+            echo '```'
+            find /tmp/starter -type f | head -300
+            echo '```'
+            find /tmp/starter -maxdepth 7 -type f \( -name 'settings.gradle*' -o -name 'build.gradle*' -o -name 'libs.versions.toml' -o -name 'gradle-wrapper.properties' -o -name 'AndroidManifest.xml' \) | while read -r f; do
+              echo "### $f"
+              echo '```'
+              cat "$f"
+              echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
