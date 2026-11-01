@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BirrWise</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_accounts">Accounts</string>
+    <string name="nav_budgets">Budgets</string>
+    <string name="nav_people">People</string>
+
+    <string name="not_available_yet">Not available in this version yet.</string>
+
+    <string name="home_empty_title">Your overview starts here</string>
+    <string name="home_empty_message">Once you add an account and some transactions, your balance, income, and spending for the month will appear here.</string>
+
+    <string name="transactions_empty_title">No transactions yet</string>
+    <string name="transactions_empty_message">Your income and expenses will be listed here, with search and filters.</string>
+
+    <string name="accounts_empty_title">No accounts yet</string>
+    <string name="accounts_empty_message">Add your bank accounts, mobile wallets, and cash to keep track of each balance.</string>
+
+    <string name="budgets_empty_title">No budgets yet</string>
+    <string name="budgets_empty_message">Set a monthly limit for each category and see how much is left.</string>
+
+    <string name="people_empty_title">No people yet</string>
+    <string name="people_empty_message">People you send money to or receive money from will appear here once you have transactions.</string>
+</resources>

@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:allowBackup="false"
-        android:label="BirrWise"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.BirrWise"
         android:supportsRtl="true">
         <activity
             android:name=".MainActivity"
