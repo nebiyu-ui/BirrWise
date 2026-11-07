@@ -1,10 +1,12 @@
 # Privacy
 
-## Current version (0.2.0)
+## Current version (0.3.0)
 
-- The app does not store any financial data yet.
-- It requests no runtime permissions and does not declare the internet permission.
+- The app contains a local database for accounts, transactions, and categories. No screen saves data into it yet.
+- The database is a private file on the phone. It is not encrypted by the app and is not uploaded anywhere.
+- The app requests no runtime permissions and does not declare the internet permission.
 - Android automatic backup is turned off for the app.
+- Deleting the app deletes its data. A user-controlled backup and restore feature is planned and does not exist yet.
 
 ## Principles for future versions
 
