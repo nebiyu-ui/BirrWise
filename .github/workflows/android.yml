@@ -16,17 +16,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Apply update.zip if present
+      - name: Apply update zip if present
         if: github.event_name != 'pull_request'
         run: |
-          if [ -f update.zip ]; then
-            unzip -o -q update.zip
-            rm update.zip
+          shopt -s nullglob
+          applied=0
+          while IFS= read -r z; do
+            [ -n "$z" ] || continue
+            echo "Applying: $z"
+            unzip -o -q "$z"
+            rm -- "$z"
+            applied=1
+          done < <(printf '%s\n' [Uu]pdate*.zip | sort -V)
+          if [ "$applied" = "1" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "Apply update.zip"
-            git push
+            if git diff --cached --quiet; then
+              echo "Nothing changed."
+            else
+              git commit -m "Apply update zip"
+              git push
+            fi
+          else
+            echo "No update zip found."
           fi
 
       - name: Restore debug signing key
