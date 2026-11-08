@@ -24,4 +24,70 @@
 
     <string name="people_empty_title">No people yet</string>
     <string name="people_empty_message">People you send money to or receive money from will appear here once you have transactions.</string>
+
+    <!-- General -->
+    <string name="back">Back</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <!-- Accounts list -->
+    <string name="accounts_add">Add account</string>
+    <string name="accounts_total_title">Total tracked balance</string>
+    <string name="accounts_total_note">Calculated from the records you entered. It is not a verified bank balance.</string>
+    <string name="accounts_tracked_balance">Tracked balance</string>
+    <string name="accounts_archived_section">Archived</string>
+    <string name="accounts_unreadable_warning">%d stored records could not be read, so balances may be incomplete.</string>
+    <string name="accounts_error">Something went wrong while reading your accounts. Close and reopen BirrWise to try again.</string>
+
+    <!-- Account types -->
+    <string name="account_type_bank">Bank</string>
+    <string name="account_type_mobile_wallet">Mobile wallet</string>
+    <string name="account_type_cash">Cash</string>
+    <string name="account_type_savings">Savings</string>
+    <string name="account_type_other">Other</string>
+
+    <!-- Account details -->
+    <string name="detail_edit">Edit account</string>
+    <string name="detail_archive">Archive account</string>
+    <string name="detail_restore">Restore account</string>
+    <string name="detail_archive_title">Archive this account?</string>
+    <string name="detail_archive_message">It will be hidden from your main list and left out of the total. Its transactions are kept, and you can restore it later.</string>
+    <string name="detail_status">Status</string>
+    <string name="detail_status_active">Active</string>
+    <string name="detail_status_archived">Archived</string>
+    <string name="detail_type">Type</string>
+    <string name="detail_provider">Bank or wallet</string>
+    <string name="detail_currency">Currency</string>
+    <string name="detail_opening_balance">Opening balance</string>
+    <string name="detail_opening_all_dates">Counts transactions from any date</string>
+    <string name="detail_opening_from">As of %s</string>
+    <string name="detail_notes">Notes</string>
+    <string name="detail_transactions_title">Transactions</string>
+    <string name="detail_transactions_soon">Adding and listing transactions comes in the next update.</string>
+    <string name="detail_not_found">This account no longer exists.</string>
+    <string name="detail_action_failed">Could not change the account. Please try again.</string>
+    <string name="detail_load_failed">Could not open this account. Close and reopen BirrWise to try again.</string>
+
+    <!-- Account form -->
+    <string name="editor_title_new">New account</string>
+    <string name="editor_title_edit">Edit account</string>
+    <string name="field_name">Account name</string>
+    <string name="field_provider">Bank or wallet (optional)</string>
+    <string name="field_type">Type</string>
+    <string name="field_currency">Currency</string>
+    <string name="field_opening_balance">Opening balance</string>
+    <string name="field_opening_balance_hint">Your balance on the date below. Leave empty for 0.00.</string>
+    <string name="field_opening_no_date">Count transactions from any date</string>
+    <string name="field_opening_date">Opening balance date</string>
+    <string name="field_notes">Notes (optional)</string>
+
+    <string name="error_name_required">Enter a name.</string>
+    <string name="error_name_too_long">Use at most %d characters.</string>
+    <string name="error_name_taken">You already have an account with this name.</string>
+    <string name="error_provider_too_long">Use at most %d characters.</string>
+    <string name="error_notes_too_long">Use at most %d characters.</string>
+    <string name="error_amount_invalid">Enter an amount like 1250.50.</string>
+    <string name="error_save_failed">Could not save the account. Please try again.</string>
+    <string name="error_currency_locked">The currency cannot change once an account has transactions.</string>
 </resources>

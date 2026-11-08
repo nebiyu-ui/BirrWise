@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,12 +20,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import et.birrwise.app.R
 
+/**
+ * A friendly screen for "nothing here yet". With an [actionLabel] and [onAction] it offers the
+ * next step; without them it says the feature is not available yet.
+ */
 @Composable
 fun EmptyState(
     icon: ImageVector,
     title: String,
     message: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    actionLabel: String? = null,
+    onAction: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -53,12 +60,17 @@ fun EmptyState(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
-        Spacer(Modifier.height(16.dp))
-        Text(
-            text = stringResource(R.string.not_available_yet),
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center
-        )
+        if (actionLabel != null && onAction != null) {
+            Spacer(Modifier.height(24.dp))
+            Button(onClick = onAction) { Text(actionLabel) }
+        } else {
+            Spacer(Modifier.height(16.dp))
+            Text(
+                text = stringResource(R.string.not_available_yet),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }

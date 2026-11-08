@@ -8,8 +8,9 @@ A phase counts as done only when it compiles, its tests pass, and the GitHub Act
 | 2 | App foundation: theme, five-section navigation, empty screens | Done (checked on a phone) |
 | 3a | Financial calculation engine: money, periods, balances, reports, budget math, with tests | Done |
 | 3b | Room database: entities, DAOs, repositories, database tests | Done |
-| 3c | Fixed debug signing key so new builds install over old ones and keep data | In progress (waiting for build result) |
-| 4 | Accounts and manual transactions | Planned |
+| 3c | Fixed debug signing key so new builds install over old ones and keep data | Done |
+| 4a | Accounts: list, create, edit, archive, tracked balance | In progress (waiting for build result) |
+| 4b | Manual transactions: income, expense, transfer, fee, refund, review state | Planned |
 | 5 | Home overview, transaction history, search, filters | Planned |
 | 6 | Categories and monthly budgets | Planned |
 | 7 | CSV import and export, duplicate detection | Planned |

@@ -26,15 +26,6 @@ fun TransactionsScreen() {
 }
 
 @Composable
-fun AccountsScreen() {
-    EmptyState(
-        icon = TopLevelDestination.ACCOUNTS.icon(),
-        title = stringResource(R.string.accounts_empty_title),
-        message = stringResource(R.string.accounts_empty_message)
-    )
-}
-
-@Composable
 fun BudgetsScreen() {
     EmptyState(
         icon = TopLevelDestination.BUDGETS.icon(),

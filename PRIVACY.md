@@ -1,8 +1,8 @@
 # Privacy
 
-## Current version (0.3.0)
+## Current version (0.4.0)
 
-- The app contains a local database for accounts, transactions, and categories. No screen saves data into it yet.
+- The app stores the accounts you create (name, bank or wallet, type, currency, opening balance, date, and notes) in a local database on your phone. Transactions cannot be entered yet.
 - The database is a private file on the phone. It is not encrypted by the app and is not uploaded anywhere.
 - The app requests no runtime permissions and does not declare the internet permission.
 - Android automatic backup is turned off for the app.
