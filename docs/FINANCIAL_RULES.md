@@ -53,3 +53,15 @@ These rules are implemented in `app/src/main/java/et/birrwise/app/domain` and co
 
 - Percent used is rounded down to a whole number. The alert threshold is checked exactly, without rounding.
 - Net spending below zero counts as zero spent. Overspending is shown separately from the remaining amount.
+
+## Manual entries
+
+- Every amount is in Ethiopian birr (ETB). The code supports other currencies underneath, but the app does not offer them.
+- A person can enter income, expense, fee, and refund as single transactions, and a transfer as a linked pair.
+- A transfer takes money from one account and puts it in another. An optional transfer fee is saved as a separate Fee transaction on the sending account, in the Bank fees category, so the combined balance falls by the fee only.
+- Everything for one entry (both legs and the fee) is saved together or not at all.
+- Income categories go with income. Expense categories go with expense, fee, and refund. Transfers use the built-in Transfers category.
+- An entry dated today uses the current time. An entry for another day uses noon, so it never lands on the edge of an opening balance date. Editing an entry without changing its day keeps its time.
+- An entry dated before an account's opening balance date is saved but does not change the tracked balance. The form says so.
+- Marking an entry "needs review" saves it as pending. Pending entries are left out of balances and reports until the person confirms them.
+- Transfers cannot be edited. To change one, delete it and enter it again. Deleting either leg deletes both.

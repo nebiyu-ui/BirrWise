@@ -48,6 +48,7 @@ import et.birrwise.app.domain.AccountFormError
 import et.birrwise.app.domain.AccountFormInput
 import et.birrwise.app.domain.AccountFormValidator
 import et.birrwise.app.domain.AccountType
+import et.birrwise.app.domain.DEFAULT_CURRENCY_CODE
 import et.birrwise.app.ui.components.DateField
 import et.birrwise.app.ui.components.ScreenHeader
 import kotlinx.coroutines.launch
@@ -128,7 +129,6 @@ private fun AccountForm(
     var name by rememberSaveable { mutableStateOf(existing?.name ?: "") }
     var provider by rememberSaveable { mutableStateOf(existing?.provider ?: "") }
     var typeName by rememberSaveable { mutableStateOf((existing?.type ?: AccountType.BANK).name) }
-    var currency by rememberSaveable { mutableStateOf(existing?.currencyCode ?: "ETB") }
     var amountText by rememberSaveable {
         mutableStateOf(if (existing != null) editableAmount(existing.openingBalance) else "")
     }
@@ -206,21 +206,6 @@ private fun AccountForm(
             }
         }
 
-        Text(
-            text = stringResource(R.string.field_currency),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        Column(Modifier.selectableGroup()) {
-            for (code in SupportedCurrencies) {
-                RadioRow(
-                    label = code,
-                    selected = currency == code,
-                    onSelect = { currency = code }
-                )
-            }
-        }
-
         OutlinedTextField(
             value = amountText,
             onValueChange = { amountText = it },
@@ -286,7 +271,7 @@ private fun AccountForm(
                         name = name,
                         provider = provider,
                         type = AccountType.valueOf(typeName),
-                        currencyCode = currency,
+                        currencyCode = DEFAULT_CURRENCY_CODE,
                         openingBalanceText = amountText,
                         openingDate = if (anyDate) null else LocalDate.ofEpochDay(dateEpochDay),
                         notes = notes

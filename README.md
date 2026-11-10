@@ -1,10 +1,10 @@
 # BirrWise
 
-Personal finance and expense tracker for Ethiopia. Built to work offline, with no account required.
+Personal finance and expense tracker for Ethiopia. Built to work offline, with no account required. All amounts are in Ethiopian birr (ETB).
 
 ## Status
 
-Early development (version 0.4.0). You can create, edit, and archive accounts and see each account's tracked balance. Adding transactions, budgets, imports, and SMS reading are planned and are not built yet. The Home, Transactions, Budgets, and People tabs are still empty screens.
+Early development (version 0.5.0). You can create, edit, and archive accounts, and record income, expenses, fees, refunds, and transfers by hand. Each account shows a tracked balance calculated from your records. Budgets, imports, SMS reading, and the Home overview are planned and are not built yet. The Home, Budgets, and People tabs are still empty screens.
 
 ## Technology
 

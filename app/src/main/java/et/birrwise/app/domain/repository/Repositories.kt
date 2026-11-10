@@ -50,8 +50,11 @@ interface TransactionRepository {
     /** Deleting a leg of a transfer group deletes the whole group, so no half transfer is left. */
     suspend fun deleteTransaction(id: String)
 
-    /** Saves both legs of a transfer together, or neither. */
-    suspend fun recordTransfer(outLeg: Transaction, inLeg: Transaction)
+    /**
+     * Saves both legs of a transfer, and the optional fee charged to the sending account, together
+     * or not at all.
+     */
+    suspend fun recordTransfer(outLeg: Transaction, inLeg: Transaction, fee: Transaction? = null)
 }
 
 interface CategoryRepository {

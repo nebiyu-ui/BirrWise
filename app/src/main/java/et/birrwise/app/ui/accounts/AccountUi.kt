@@ -26,9 +26,6 @@ internal fun AccountFormError.messageRes(): Int = when (this) {
     AccountFormError.AMOUNT_INVALID -> R.string.error_amount_invalid
 }
 
-/** The currencies offered when creating an account. ETB is the default. */
-internal val SupportedCurrencies: List<String> = listOf("ETB", "USD", "EUR")
-
 internal fun Context.appContainer(): AppContainer =
     (applicationContext as BirrWiseApplication).container
 

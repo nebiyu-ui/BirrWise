@@ -28,7 +28,8 @@ import et.birrwise.app.ui.accounts.AccountsScreen
 import et.birrwise.app.ui.screens.BudgetsScreen
 import et.birrwise.app.ui.screens.HomeScreen
 import et.birrwise.app.ui.screens.PeopleScreen
-import et.birrwise.app.ui.screens.TransactionsScreen
+import et.birrwise.app.ui.transactions.TransactionEditorScreen
+import et.birrwise.app.ui.transactions.TransactionsScreen
 
 @Composable
 fun BirrWiseApp() {
@@ -76,7 +77,13 @@ fun BirrWiseApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(TopLevelDestination.HOME.route) { HomeScreen() }
-            composable(TopLevelDestination.TRANSACTIONS.route) { TransactionsScreen() }
+            composable(TopLevelDestination.TRANSACTIONS.route) {
+                TransactionsScreen(
+                    onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) },
+                    onAddTransaction = { navController.navigate(Routes.transactionNew()) },
+                    onAddAccount = { navController.navigate(Routes.ACCOUNT_NEW) }
+                )
+            }
             composable(TopLevelDestination.ACCOUNTS.route) {
                 AccountsScreen(
                     onOpenAccount = { id -> navController.navigate(Routes.accountDetail(id)) },
@@ -100,7 +107,9 @@ fun BirrWiseApp() {
                 AccountDetailScreen(
                     accountId = id,
                     onBack = { navController.popBackStack() },
-                    onEdit = { navController.navigate(Routes.accountEdit(id)) }
+                    onEdit = { navController.navigate(Routes.accountEdit(id)) },
+                    onAddTransaction = { navController.navigate(Routes.transactionNew(id)) },
+                    onOpenTransaction = { txId -> navController.navigate(Routes.transactionEdit(txId)) }
                 )
             }
             composable(
@@ -110,6 +119,32 @@ fun BirrWiseApp() {
                 val id = entry.arguments?.getString(Routes.ACCOUNT_ARG).orEmpty()
                 AccountEditorScreen(
                     accountId = id,
+                    onDone = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = Routes.TRANSACTION_NEW,
+                arguments = listOf(
+                    navArgument(Routes.ACCOUNT_ARG) {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    }
+                )
+            ) { entry ->
+                TransactionEditorScreen(
+                    transactionId = null,
+                    presetAccountId = entry.arguments?.getString(Routes.ACCOUNT_ARG),
+                    onDone = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = Routes.TRANSACTION_EDIT,
+                arguments = listOf(navArgument(Routes.TRANSACTION_ARG) { type = NavType.StringType })
+            ) { entry ->
+                TransactionEditorScreen(
+                    transactionId = entry.arguments?.getString(Routes.TRANSACTION_ARG).orEmpty(),
+                    presetAccountId = null,
                     onDone = { navController.popBackStack() }
                 )
             }

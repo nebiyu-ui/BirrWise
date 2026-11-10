@@ -22,7 +22,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -38,6 +37,7 @@ import et.birrwise.app.domain.Account
 import et.birrwise.app.domain.MoneyFormatter
 import et.birrwise.app.ui.components.ScreenHeader
 import et.birrwise.app.ui.theme.LocalFinanceColors
+import et.birrwise.app.ui.transactions.TransactionRow
 import kotlinx.coroutines.launch
 import java.time.ZoneId
 
@@ -45,7 +45,9 @@ import java.time.ZoneId
 fun AccountDetailScreen(
     accountId: String,
     onBack: () -> Unit,
-    onEdit: () -> Unit
+    onEdit: () -> Unit,
+    onAddTransaction: () -> Unit,
+    onOpenTransaction: (String) -> Unit
 ) {
     val container = LocalContext.current.appContainer()
     val viewModel: AccountDetailViewModel = viewModel(
@@ -87,11 +89,35 @@ fun AccountDetailScreen(
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    Text(
-                        text = stringResource(R.string.detail_transactions_soon),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    if (!account.archived) {
+                        Button(onClick = onAddTransaction, modifier = Modifier.fillMaxWidth()) {
+                            Text(stringResource(R.string.detail_add_transaction))
+                        }
+                    }
+                    if (current.recent.isEmpty()) {
+                        Text(
+                            text = stringResource(R.string.detail_no_transactions),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    } else {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            for (item in current.recent) {
+                                TransactionRow(
+                                    item = item,
+                                    showAccount = false,
+                                    onClick = { onOpenTransaction(item.transaction.id) }
+                                )
+                            }
+                        }
+                        if (current.totalTransactions > current.recent.size) {
+                            Text(
+                                text = stringResource(R.string.detail_recent_note, current.recent.size),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
 
                     if (actionFailed) {
                         Text(
@@ -101,7 +127,7 @@ fun AccountDetailScreen(
                         )
                     }
 
-                    Button(onClick = onEdit, modifier = Modifier.fillMaxWidth()) {
+                    OutlinedButton(onClick = onEdit, modifier = Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.detail_edit))
                     }
                     OutlinedButton(
@@ -187,6 +213,17 @@ private fun BalanceCard(state: AccountDetailUiState.Loaded) {
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
+            if (state.summary.pendingTransactionsExcluded > 0) {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = stringResource(
+                        R.string.detail_pending_note,
+                        state.summary.pendingTransactionsExcluded
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
             if (state.unreadableTransactions > 0) {
                 Spacer(Modifier.height(8.dp))
                 Text(
@@ -223,7 +260,6 @@ private fun DetailsCard(account: Account) {
             )
             DetailRow(stringResource(R.string.detail_type), stringResource(account.type.labelRes()))
             account.provider?.let { DetailRow(stringResource(R.string.detail_provider), it) }
-            DetailRow(stringResource(R.string.detail_currency), account.currencyCode)
             DetailRow(
                 stringResource(R.string.detail_opening_balance),
                 MoneyFormatter.format(account.openingBalance) + "\n" + openingDateText

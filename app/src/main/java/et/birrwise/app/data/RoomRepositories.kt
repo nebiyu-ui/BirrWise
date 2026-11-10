@@ -112,7 +112,7 @@ class RoomTransactionRepository(
         }
     }
 
-    override suspend fun recordTransfer(outLeg: Transaction, inLeg: Transaction) {
+    override suspend fun recordTransfer(outLeg: Transaction, inLeg: Transaction, fee: Transaction?) {
         require(outLeg.type == TransactionType.TRANSFER_OUT) { "The first leg must be TRANSFER_OUT" }
         require(inLeg.type == TransactionType.TRANSFER_IN) { "The second leg must be TRANSFER_IN" }
         val group = outLeg.transferGroupId
@@ -121,10 +121,18 @@ class RoomTransactionRepository(
         }
         require(outLeg.accountId != inLeg.accountId) { "A transfer needs two different accounts" }
         require(outLeg.amount == inLeg.amount) { "Both legs must have the same amount and currency" }
+        if (fee != null) {
+            require(fee.type == TransactionType.FEE) { "The fee must be a FEE transaction" }
+            require(fee.accountId == outLeg.accountId) {
+                "The fee must be charged to the account the money leaves"
+            }
+            require(fee.transferGroupId == null) { "The fee must not be part of the transfer group" }
+        }
         val now = clock.millis()
         database.withTransaction {
             dao.insert(outLeg.toEntity(createdAt = now, updatedAt = now))
             dao.insert(inLeg.toEntity(createdAt = now, updatedAt = now))
+            if (fee != null) dao.insert(fee.toEntity(createdAt = now, updatedAt = now))
         }
     }
 

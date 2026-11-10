@@ -90,4 +90,71 @@
     <string name="error_amount_invalid">Enter an amount like 1250.50.</string>
     <string name="error_save_failed">Could not save the account. Please try again.</string>
     <string name="error_currency_locked">The currency cannot change once an account has transactions.</string>
+
+    <!-- Account detail: transactions -->
+    <string name="detail_add_transaction">Add transaction</string>
+    <string name="detail_no_transactions">No transactions in this account yet.</string>
+    <string name="detail_recent_note">Showing the latest %d transactions.</string>
+    <string name="detail_pending_note">%d transactions are waiting for review and are not counted yet.</string>
+
+    <!-- Transactions list -->
+    <string name="transactions_add">Add transaction</string>
+    <string name="transactions_error">Something went wrong while reading your transactions. Close and reopen BirrWise to try again.</string>
+    <string name="transactions_need_account_title">Add an account first</string>
+    <string name="transactions_need_account_message">Transactions belong to an account. Create one, then come back to record your first transaction.</string>
+    <string name="transactions_empty_message_manual">Record money you receive or spend, and it will be listed here.</string>
+    <string name="needs_review">Needs review</string>
+
+    <!-- Entry types -->
+    <string name="type_income">Income</string>
+    <string name="type_expense">Expense</string>
+    <string name="type_fee">Fee</string>
+    <string name="type_refund">Refund</string>
+    <string name="type_transfer">Transfer</string>
+    <string name="type_transfer_in">Transfer in</string>
+    <string name="type_transfer_out">Transfer out</string>
+    <string name="type_reversal">Reversal</string>
+
+    <!-- Transaction form -->
+    <string name="transaction_title_new">New transaction</string>
+    <string name="transaction_title_edit">Transaction</string>
+    <string name="transaction_not_found">This transaction no longer exists.</string>
+    <string name="transaction_load_failed">Could not open this transaction. Close and reopen BirrWise to try again.</string>
+    <string name="transaction_no_accounts">Create an account before recording transactions.</string>
+    <string name="field_kind">Type</string>
+    <string name="field_account">Account</string>
+    <string name="field_from_account">From account</string>
+    <string name="field_to_account">To account</string>
+    <string name="field_amount">Amount (ETB)</string>
+    <string name="field_transfer_fee">Transfer fee (optional)</string>
+    <string name="field_transfer_fee_hint">Charged to the account the money leaves.</string>
+    <string name="field_date">Date</string>
+    <string name="field_category">Category</string>
+    <string name="category_none">No category</string>
+    <string name="field_description">Description</string>
+    <string name="field_counterparty">Person or business (optional)</string>
+    <string name="field_needs_review">Needs review</string>
+    <string name="field_needs_review_hint">Left out of balances and reports until you confirm it.</string>
+    <string name="warning_before_opening">This date is before the account\'s opening balance date, so this entry will not change its tracked balance.</string>
+    <string name="transaction_save_failed">Could not save. Please try again.</string>
+    <string name="transaction_delete_failed">Could not delete. Please try again.</string>
+    <string name="transaction_delete">Delete transaction</string>
+    <string name="transaction_delete_title">Delete this entry?</string>
+    <string name="transaction_delete_message">This cannot be undone.</string>
+    <string name="transaction_readonly_note">This entry cannot be edited here. You can delete it.</string>
+    <string name="transfer_readonly_note">A transfer cannot be edited. To change it, delete it and enter it again.</string>
+    <string name="transfer_delete">Delete transfer</string>
+    <string name="transfer_delete_message">Both sides of the transfer will be deleted. This cannot be undone.</string>
+    <string name="delete">Delete</string>
+
+    <string name="error_account_required">Choose an account.</string>
+    <string name="error_to_account_required">Choose the account that receives the money.</string>
+    <string name="error_same_account">Choose two different accounts.</string>
+    <string name="error_currency_mismatch">Both accounts must use the same currency.</string>
+    <string name="error_amount_required">Enter an amount.</string>
+    <string name="error_amount_zero">The amount must be more than zero.</string>
+    <string name="error_fee_invalid">Enter a fee like 10 or 10.50, or leave it empty.</string>
+    <string name="error_category_mismatch">Choose a category that fits this type of entry.</string>
+    <string name="error_description_too_long">Use at most %d characters.</string>
+    <string name="error_counterparty_too_long">Use at most %d characters.</string>
 </resources>
