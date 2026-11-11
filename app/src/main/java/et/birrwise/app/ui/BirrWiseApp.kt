@@ -26,7 +26,7 @@ import et.birrwise.app.ui.accounts.AccountDetailScreen
 import et.birrwise.app.ui.accounts.AccountEditorScreen
 import et.birrwise.app.ui.accounts.AccountsScreen
 import et.birrwise.app.ui.screens.BudgetsScreen
-import et.birrwise.app.ui.screens.HomeScreen
+import et.birrwise.app.ui.home.HomeScreen
 import et.birrwise.app.ui.screens.PeopleScreen
 import et.birrwise.app.ui.transactions.TransactionEditorScreen
 import et.birrwise.app.ui.transactions.TransactionsScreen
@@ -38,6 +38,16 @@ fun BirrWiseApp() {
     val currentDestination = backStackEntry?.destination
     val showBottomBar = TopLevelDestination.entries.any { it.route == currentDestination?.route }
 
+    val navigateToTab: (String) -> Unit = { route ->
+        navController.navigate(route) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
@@ -47,15 +57,7 @@ fun BirrWiseApp() {
                             currentDestination?.hierarchy?.any { it.route == destination.route } == true
                         NavigationBarItem(
                             selected = selected,
-                            onClick = {
-                                navController.navigate(destination.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
+                            onClick = { navigateToTab(destination.route) },
                             icon = { Icon(destination.icon(), contentDescription = null) },
                             label = {
                                 Text(
@@ -76,7 +78,17 @@ fun BirrWiseApp() {
             startDestination = TopLevelDestination.HOME.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(TopLevelDestination.HOME.route) { HomeScreen() }
+            composable(TopLevelDestination.HOME.route) {
+                HomeScreen(
+                    onAddIncome = { navController.navigate(Routes.transactionNew(kind = "INCOME")) },
+                    onAddExpense = { navController.navigate(Routes.transactionNew(kind = "EXPENSE")) },
+                    onAddTransfer = { navController.navigate(Routes.transactionNew(kind = "TRANSFER")) },
+                    onAddAccount = { navController.navigate(Routes.ACCOUNT_NEW) },
+                    onViewTransactions = { navigateToTab(TopLevelDestination.TRANSACTIONS.route) },
+                    onOpenAccount = { id -> navController.navigate(Routes.accountDetail(id)) },
+                    onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) }
+                )
+            }
             composable(TopLevelDestination.TRANSACTIONS.route) {
                 TransactionsScreen(
                     onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) },
@@ -129,12 +141,18 @@ fun BirrWiseApp() {
                         type = NavType.StringType
                         nullable = true
                         defaultValue = null
+                    },
+                    navArgument(Routes.KIND_ARG) {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
                     }
                 )
             ) { entry ->
                 TransactionEditorScreen(
                     transactionId = null,
                     presetAccountId = entry.arguments?.getString(Routes.ACCOUNT_ARG),
+                    presetKind = entry.arguments?.getString(Routes.KIND_ARG),
                     onDone = { navController.popBackStack() }
                 )
             }
@@ -145,6 +163,7 @@ fun BirrWiseApp() {
                 TransactionEditorScreen(
                     transactionId = entry.arguments?.getString(Routes.TRANSACTION_ARG).orEmpty(),
                     presetAccountId = null,
+                    presetKind = null,
                     onDone = { navController.popBackStack() }
                 )
             }

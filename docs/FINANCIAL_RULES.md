@@ -65,3 +65,13 @@ These rules are implemented in `app/src/main/java/et/birrwise/app/domain` and co
 - An entry dated before an account's opening balance date is saved but does not change the tracked balance. The form says so.
 - Marking an entry "needs review" saves it as pending. Pending entries are left out of balances and reports until the person confirms them.
 - Transfers cannot be edited. To change one, delete it and enter it again. Deleting either leg deletes both.
+
+## Home overview
+
+- Everything on Home covers active (not archived) accounts only, in birr.
+- Total tracked balance is the sum of the active accounts' tracked balances. It does not depend on the month chosen.
+- Income, expenses, and net cash flow are for the month chosen, from the same calculation as every other report. Only confirmed entries count. Transfers are never income or expenses.
+- Entries marked "needs review" are counted in a warning, whatever their date, and are left out of the totals until confirmed.
+- Transfer entries without a matching other side are counted in a warning.
+- Months are calendar months in the phone's time zone. The future is not offered.
+- The recent list shows the latest five entries of active accounts, including those that need review.

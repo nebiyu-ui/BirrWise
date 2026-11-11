@@ -14,19 +14,25 @@ class RoutesTest {
     }
 
     @Test
-    fun newTransactionRouteCarriesAnOptionalAccount() {
+    fun newTransactionRouteCarriesOptionalAccountAndKind() {
         assertEquals("transaction-new", Routes.transactionNew())
         assertEquals("transaction-new?accountId=abc-123", Routes.transactionNew("abc-123"))
+        assertEquals("transaction-new?kind=INCOME", Routes.transactionNew(kind = "INCOME"))
+        assertEquals(
+            "transaction-new?accountId=abc-123&kind=TRANSFER",
+            Routes.transactionNew("abc-123", "TRANSFER")
+        )
     }
 
     @Test
     fun patternsUseTheSharedArgumentNames() {
         assertEquals("account/{accountId}", Routes.ACCOUNT_DETAIL)
         assertEquals("account/{accountId}/edit", Routes.ACCOUNT_EDIT)
-        assertEquals("transaction-new?accountId={accountId}", Routes.TRANSACTION_NEW)
+        assertEquals("transaction-new?accountId={accountId}&kind={kind}", Routes.TRANSACTION_NEW)
         assertEquals("transaction/{transactionId}", Routes.TRANSACTION_EDIT)
         assertEquals("accountId", Routes.ACCOUNT_ARG)
         assertEquals("transactionId", Routes.TRANSACTION_ARG)
+        assertEquals("kind", Routes.KIND_ARG)
     }
 
     @Test

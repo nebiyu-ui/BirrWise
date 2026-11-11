@@ -65,6 +65,7 @@ import java.time.LocalDate
 fun TransactionEditorScreen(
     transactionId: String?,
     presetAccountId: String?,
+    presetKind: String?,
     onDone: () -> Unit
 ) {
     val container = LocalContext.current.appContainer()
@@ -105,6 +106,7 @@ fun TransactionEditorScreen(
                 if (editable) {
                     TransactionForm(
                         ready = current,
+                        presetKind = EntryKind.entries.firstOrNull { it.name == presetKind },
                         saveState = saveState,
                         deleteFailed = deleteFailed,
                         onSave = { input -> scope.launch { viewModel.save(input) } },
@@ -146,6 +148,7 @@ private fun Message(text: String) {
 @Composable
 private fun TransactionForm(
     ready: TransactionEditorLoadState.Ready,
+    presetKind: EntryKind?,
     saveState: TransactionEditorSaveState,
     deleteFailed: Boolean,
     onSave: (TransactionFormInput) -> Unit,
@@ -168,7 +171,13 @@ private fun TransactionForm(
         ?: accounts.first().id
 
     var kindName by rememberSaveable {
-        mutableStateOf((existing?.let { EntryKind.forType(it.type) } ?: EntryKind.EXPENSE).name)
+        mutableStateOf(
+            (
+                existing?.let { EntryKind.forType(it.type) }
+                    ?: presetKind?.takeIf { it in availableKinds }
+                    ?: EntryKind.EXPENSE
+                ).name
+        )
     }
     var accountId by rememberSaveable { mutableStateOf(firstAccountId) }
     var toAccountId by rememberSaveable {

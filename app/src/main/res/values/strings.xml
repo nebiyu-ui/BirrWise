@@ -157,4 +157,24 @@
     <string name="error_category_mismatch">Choose a category that fits this type of entry.</string>
     <string name="error_description_too_long">Use at most %d characters.</string>
     <string name="error_counterparty_too_long">Use at most %d characters.</string>
+
+    <!-- Home -->
+    <string name="home_error">Something went wrong while reading your data. Close and reopen BirrWise to try again.</string>
+    <string name="home_previous_month">Previous month</string>
+    <string name="home_next_month">Next month</string>
+    <string name="home_income">Income</string>
+    <string name="home_expenses">Expenses</string>
+    <string name="home_net">Net cash flow</string>
+    <string name="home_summary_note">Counts confirmed entries on active accounts. Transfers are not income or expenses.</string>
+    <string name="home_pending_warning">%d entries need review and are not counted yet.</string>
+    <string name="home_unpaired_warning">%d transfer entries have no matching other side. Check them or delete them.</string>
+    <string name="home_review_action">Review</string>
+    <string name="home_quick_actions">Quick actions</string>
+    <string name="home_add_income">Add income</string>
+    <string name="home_add_expense">Add expense</string>
+    <string name="home_transfer">Transfer money</string>
+    <string name="home_accounts_title">Accounts</string>
+    <string name="home_recent_title">Recent transactions</string>
+    <string name="home_no_recent">No transactions yet. Add your first one with the buttons above.</string>
+    <string name="home_view_all">View all transactions</string>
 </resources>

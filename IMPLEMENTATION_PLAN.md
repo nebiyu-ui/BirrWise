@@ -10,8 +10,9 @@ A phase counts as done only when it compiles, its tests pass, and the GitHub Act
 | 3b | Room database: entities, DAOs, repositories, database tests | Done |
 | 3c | Fixed debug signing key so new builds install over old ones and keep data | Done |
 | 4a | Accounts: list, create, edit, archive, tracked balance | Done (checked on a phone) |
-| 4b | Manual transactions: income, expense, transfer, fee, refund, review state | In progress (waiting for build result) |
-| 5 | Home overview, transaction history, search, filters | Planned |
+| 4b | Manual transactions: income, expense, transfer, fee, refund, review state | Done (checked on a phone) |
+| 5a | Home overview: month totals, balance, accounts, recent entries, warnings, quick actions | In progress (waiting for build result) |
+| 5b | Transactions: search, filters, sorting, grouping by day | Planned |
 | 6 | Categories and monthly budgets | Planned |
 | 7 | CSV import and export, duplicate detection | Planned |
 | 8 | SMS message parsing | Planned |
