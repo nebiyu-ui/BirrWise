@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -20,9 +21,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import et.birrwise.app.domain.EntryKind
+import et.birrwise.app.domain.TransactionFilter
 import et.birrwise.app.navigation.Routes
 import et.birrwise.app.navigation.TopLevelDestination
 import et.birrwise.app.ui.accounts.AccountDetailScreen
+import et.birrwise.app.ui.accounts.appContainer
 import et.birrwise.app.ui.accounts.AccountEditorScreen
 import et.birrwise.app.ui.accounts.AccountsScreen
 import et.birrwise.app.ui.screens.BudgetsScreen
@@ -34,6 +38,7 @@ import et.birrwise.app.ui.transactions.TransactionsScreen
 @Composable
 fun BirrWiseApp() {
     val navController = rememberNavController()
+    val container = LocalContext.current.appContainer()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
     val showBottomBar = TopLevelDestination.entries.any { it.route == currentDestination?.route }
@@ -84,7 +89,18 @@ fun BirrWiseApp() {
                     onAddExpense = { navController.navigate(Routes.transactionNew(kind = "EXPENSE")) },
                     onAddTransfer = { navController.navigate(Routes.transactionNew(kind = "TRANSFER")) },
                     onAddAccount = { navController.navigate(Routes.ACCOUNT_NEW) },
-                    onViewTransactions = { navigateToTab(TopLevelDestination.TRANSACTIONS.route) },
+                    onViewTransactions = {
+                        container.transactionFilter.value = TransactionFilter()
+                        navigateToTab(TopLevelDestination.TRANSACTIONS.route)
+                    },
+                    onReviewPending = {
+                        container.transactionFilter.value = TransactionFilter(reviewOnly = true)
+                        navigateToTab(TopLevelDestination.TRANSACTIONS.route)
+                    },
+                    onReviewTransfers = {
+                        container.transactionFilter.value = TransactionFilter(kind = EntryKind.TRANSFER)
+                        navigateToTab(TopLevelDestination.TRANSACTIONS.route)
+                    },
                     onOpenAccount = { id -> navController.navigate(Routes.accountDetail(id)) },
                     onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) }
                 )

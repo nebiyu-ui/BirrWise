@@ -1,5 +1,6 @@
 package et.birrwise.app.ui.components
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import et.birrwise.app.R
@@ -20,7 +22,6 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 /** A button that shows a date as year-month-day and opens a date picker when tapped. */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateField(
     label: String,
@@ -40,30 +41,76 @@ fun DateField(
     }
 
     if (open) {
-        // The picker works in UTC midnight, so the day is converted in UTC both ways.
-        val pickerState = rememberDatePickerState(
-            initialSelectedDateMillis = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+        DatePickerPopup(
+            initial = date,
+            onPicked = onDateChange,
+            onDismiss = { open = false }
         )
-        DatePickerDialog(
-            onDismissRequest = { open = false },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        val picked = pickerState.selectedDateMillis
-                        if (picked != null) {
-                            onDateChange(
-                                Instant.ofEpochMilli(picked).atZone(ZoneOffset.UTC).toLocalDate()
-                            )
-                        }
-                        open = false
-                    }
-                ) { Text(stringResource(R.string.ok)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { open = false }) { Text(stringResource(R.string.cancel)) }
-            }
+    }
+}
+
+/** Like [DateField], but the date may be unset. A Clear button appears once a date is chosen. */
+@Composable
+fun OptionalDateField(
+    label: String,
+    date: LocalDate?,
+    onDateChange: (LocalDate?) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var open by remember { mutableStateOf(false) }
+    val shown = date?.toString() ?: stringResource(R.string.filter_any_date)
+
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        OutlinedButton(
+            onClick = { open = true },
+            modifier = Modifier.weight(1f)
         ) {
-            DatePicker(state = pickerState)
+            Text("$label: $shown")
         }
+        if (date != null) {
+            TextButton(onClick = { onDateChange(null) }) {
+                Text(stringResource(R.string.filter_clear_date))
+            }
+        }
+    }
+
+    if (open) {
+        DatePickerPopup(
+            initial = date ?: LocalDate.now(),
+            onPicked = { onDateChange(it) },
+            onDismiss = { open = false }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DatePickerPopup(
+    initial: LocalDate,
+    onPicked: (LocalDate) -> Unit,
+    onDismiss: () -> Unit
+) {
+    // The picker works in UTC midnight, so the day is converted in UTC both ways.
+    val pickerState = rememberDatePickerState(
+        initialSelectedDateMillis = initial.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+    )
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    val picked = pickerState.selectedDateMillis
+                    if (picked != null) {
+                        onPicked(Instant.ofEpochMilli(picked).atZone(ZoneOffset.UTC).toLocalDate())
+                    }
+                    onDismiss()
+                }
+            ) { Text(stringResource(R.string.ok)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }
+        }
+    ) {
+        DatePicker(state = pickerState)
     }
 }

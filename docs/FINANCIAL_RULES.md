@@ -75,3 +75,12 @@ These rules are implemented in `app/src/main/java/et/birrwise/app/domain` and co
 - Transfer entries without a matching other side are counted in a warning.
 - Months are calendar months in the phone's time zone. The future is not offered.
 - The recent list shows the latest five entries of active accounts, including those that need review.
+
+## Search, filters, and sorting (Transactions tab)
+
+- Search looks in the description, the person or business, the merchant, and the notes. It ignores capital letters and surrounding spaces.
+- Filters are account, category (or no category), type, a first and last day, and "needs review only". A transfer matches both of its sides. Filters combine: an entry must match all of them.
+- Days run from local midnight to local midnight in the phone's time zone. Both the first and the last day are included.
+- Sorting is by date (newest or oldest first) or by amount (largest or smallest first). Entries that tie are ordered by date, then by id, so the order never jumps.
+- Day headings appear when the list is ordered by date and are left out when it is ordered by amount.
+- Filters only change what is listed. They never change balances, totals, or reports.

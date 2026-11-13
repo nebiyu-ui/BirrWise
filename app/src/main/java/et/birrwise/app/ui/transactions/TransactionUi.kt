@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import et.birrwise.app.R
 import et.birrwise.app.domain.EntryKind
 import et.birrwise.app.domain.TransactionFormError
+import et.birrwise.app.domain.TransactionSort
 import et.birrwise.app.domain.TransactionType
 
 internal fun TransactionType.labelRes(): Int = when (this) {
@@ -60,4 +61,11 @@ internal fun TransactionFormError.messageRes(): Int = when (this) {
     TransactionFormError.DESCRIPTION_TOO_LONG -> R.string.error_description_too_long
     TransactionFormError.COUNTERPARTY_TOO_LONG -> R.string.error_counterparty_too_long
     TransactionFormError.NOTES_TOO_LONG -> R.string.error_notes_too_long
+}
+
+internal fun TransactionSort.labelRes(): Int = when (this) {
+    TransactionSort.DATE_NEWEST -> R.string.sort_newest
+    TransactionSort.DATE_OLDEST -> R.string.sort_oldest
+    TransactionSort.AMOUNT_LARGEST -> R.string.sort_largest
+    TransactionSort.AMOUNT_SMALLEST -> R.string.sort_smallest
 }

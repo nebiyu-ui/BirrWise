@@ -177,4 +177,31 @@
     <string name="home_recent_title">Recent transactions</string>
     <string name="home_no_recent">No transactions yet. Add your first one with the buttons above.</string>
     <string name="home_view_all">View all transactions</string>
+
+    <!-- Transactions: search and filters -->
+    <string name="transactions_search_hint">Search description, person, or notes</string>
+    <string name="transactions_filters">Filters</string>
+    <string name="transactions_filters_count">Filters (%d)</string>
+    <string name="transactions_clear_filters">Clear filters</string>
+    <string name="transactions_showing">Showing %1$d of %2$d entries</string>
+    <string name="transactions_no_matches">No entries match your search or filters.</string>
+    <string name="filter_title">Filters</string>
+    <string name="filter_account">Account</string>
+    <string name="filter_all_accounts">All accounts</string>
+    <string name="filter_category">Category</string>
+    <string name="filter_all_categories">All categories</string>
+    <string name="filter_no_category">No category</string>
+    <string name="filter_type">Type</string>
+    <string name="filter_all_types">All types</string>
+    <string name="filter_from_date">From</string>
+    <string name="filter_to_date">To</string>
+    <string name="filter_any_date">Any date</string>
+    <string name="filter_clear_date">Clear</string>
+    <string name="filter_review_only">Needs review only</string>
+    <string name="filter_sort">Sort by</string>
+    <string name="filter_done">Done</string>
+    <string name="sort_newest">Newest first</string>
+    <string name="sort_oldest">Oldest first</string>
+    <string name="sort_largest">Largest amount first</string>
+    <string name="sort_smallest">Smallest amount first</string>
 </resources>

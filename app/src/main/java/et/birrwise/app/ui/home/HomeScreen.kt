@@ -66,6 +66,8 @@ fun HomeScreen(
     onAddTransfer: () -> Unit,
     onAddAccount: () -> Unit,
     onViewTransactions: () -> Unit,
+    onReviewPending: () -> Unit,
+    onReviewTransfers: () -> Unit,
     onOpenAccount: (String) -> Unit,
     onOpenTransaction: (String) -> Unit
 ) {
@@ -105,6 +107,8 @@ fun HomeScreen(
                         onAddTransfer = onAddTransfer,
                         onAddAccount = onAddAccount,
                         onViewTransactions = onViewTransactions,
+                        onReviewPending = onReviewPending,
+                        onReviewTransfers = onReviewTransfers,
                         onOpenAccount = onOpenAccount,
                         onOpenTransaction = onOpenTransaction
                     )
@@ -125,6 +129,8 @@ private fun HomeContent(
     onAddTransfer: () -> Unit,
     onAddAccount: () -> Unit,
     onViewTransactions: () -> Unit,
+    onReviewPending: () -> Unit,
+    onReviewTransfers: () -> Unit,
     onOpenAccount: (String) -> Unit,
     onOpenTransaction: (String) -> Unit
 ) {
@@ -152,7 +158,7 @@ private fun HomeContent(
                 WarningCard(
                     text = stringResource(R.string.home_pending_warning, overview.pendingReviewCount),
                     actionLabel = stringResource(R.string.home_review_action),
-                    onAction = onViewTransactions
+                    onAction = onReviewPending
                 )
             }
         }
@@ -161,7 +167,7 @@ private fun HomeContent(
                 WarningCard(
                     text = stringResource(R.string.home_unpaired_warning, overview.unpairedTransferLegs),
                     actionLabel = stringResource(R.string.home_review_action),
-                    onAction = onViewTransactions
+                    onAction = onReviewTransfers
                 )
             }
         }
