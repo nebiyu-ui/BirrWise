@@ -29,11 +29,14 @@ import et.birrwise.app.ui.accounts.AccountDetailScreen
 import et.birrwise.app.ui.accounts.appContainer
 import et.birrwise.app.ui.accounts.AccountEditorScreen
 import et.birrwise.app.ui.accounts.AccountsScreen
-import et.birrwise.app.ui.screens.BudgetsScreen
+import et.birrwise.app.ui.budgets.BudgetDetailScreen
+import et.birrwise.app.ui.budgets.BudgetEditorScreen
+import et.birrwise.app.ui.budgets.BudgetsScreen
 import et.birrwise.app.ui.home.HomeScreen
 import et.birrwise.app.ui.screens.PeopleScreen
 import et.birrwise.app.ui.transactions.TransactionEditorScreen
 import et.birrwise.app.ui.transactions.TransactionsScreen
+import java.time.YearMonth
 
 @Composable
 fun BirrWiseApp() {
@@ -51,6 +54,16 @@ fun BirrWiseApp() {
             launchSingleTop = true
             restoreState = true
         }
+    }
+
+    /** Opens the Transactions tab showing one category's entries for one month. */
+    val reviewCategory: (String, YearMonth) -> Unit = { categoryId, month ->
+        container.transactionFilter.value = TransactionFilter(
+            categoryId = categoryId,
+            fromDate = month.atDay(1),
+            toDate = month.atEndOfMonth()
+        )
+        navigateToTab(TopLevelDestination.TRANSACTIONS.route)
     }
 
     Scaffold(
@@ -118,7 +131,13 @@ fun BirrWiseApp() {
                     onAddAccount = { navController.navigate(Routes.ACCOUNT_NEW) }
                 )
             }
-            composable(TopLevelDestination.BUDGETS.route) { BudgetsScreen() }
+            composable(TopLevelDestination.BUDGETS.route) {
+                BudgetsScreen(
+                    onAddBudget = { navController.navigate(Routes.BUDGET_NEW) },
+                    onOpenBudget = { categoryId -> navController.navigate(Routes.budgetDetail(categoryId)) },
+                    onReviewCategory = { categoryId, month -> reviewCategory(categoryId, month) }
+                )
+            }
             composable(TopLevelDestination.PEOPLE.route) { PeopleScreen() }
 
             composable(Routes.ACCOUNT_NEW) {
@@ -169,6 +188,33 @@ fun BirrWiseApp() {
                     transactionId = null,
                     presetAccountId = entry.arguments?.getString(Routes.ACCOUNT_ARG),
                     presetKind = entry.arguments?.getString(Routes.KIND_ARG),
+                    onDone = { navController.popBackStack() }
+                )
+            }
+            composable(Routes.BUDGET_NEW) {
+                BudgetEditorScreen(
+                    categoryId = null,
+                    onDone = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = Routes.BUDGET_DETAIL,
+                arguments = listOf(navArgument(Routes.CATEGORY_ARG) { type = NavType.StringType })
+            ) { entry ->
+                val categoryId = entry.arguments?.getString(Routes.CATEGORY_ARG).orEmpty()
+                BudgetDetailScreen(
+                    categoryId = categoryId,
+                    onBack = { navController.popBackStack() },
+                    onEdit = { navController.navigate(Routes.budgetEdit(categoryId)) },
+                    onReviewCategory = { reviewCategory(categoryId, YearMonth.now()) }
+                )
+            }
+            composable(
+                route = Routes.BUDGET_EDIT,
+                arguments = listOf(navArgument(Routes.CATEGORY_ARG) { type = NavType.StringType })
+            ) { entry ->
+                BudgetEditorScreen(
+                    categoryId = entry.arguments?.getString(Routes.CATEGORY_ARG).orEmpty(),
                     onDone = { navController.popBackStack() }
                 )
             }

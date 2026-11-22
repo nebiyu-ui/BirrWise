@@ -84,3 +84,17 @@ These rules are implemented in `app/src/main/java/et/birrwise/app/domain` and co
 - Sorting is by date (newest or oldest first) or by amount (largest or smallest first). Entries that tie are ordered by date, then by id, so the order never jumps.
 - Day headings appear when the list is ordered by date and are left out when it is ordered by amount.
 - Filters only change what is listed. They never change balances, totals, or reports.
+
+## Budgets
+
+- A budget is a monthly limit in birr for one expense category. Each category has at most one budget, which is either ongoing or paused. Income categories and transfers have no budgets.
+- A budget starts in the month it is created and repeats every month. Months before it started are not tracked.
+- What counts as spending: confirmed expenses and fees in the category, minus refunds, on active accounts, in the calendar month (phone time zone). Transfers, entries waiting for review, entries marked as excluded from reports, and entries on archived accounts are not counted. The Budgets screen says this and shows how many entries are waiting for review.
+- Each budget shows spent, limit, remaining, percent used (rounded down), and any amount over the limit. If refunds make net spending negative, it counts as zero spent. The alert threshold is checked exactly, not on the rounded percent.
+- "All budgets together" adds up the limits and the spending of the budgets in effect that month.
+- Money spent in categories without a budget, including entries with no category, is shown as a separate line and is never added to a budget.
+- Changing a limit or alert share applies from the current month. If the budget started in an earlier month, the old version ends at the start of this month and a new version begins, so earlier months keep the limit they had. If it started this month, it is updated in place.
+- Pausing stops tracking from the current month. Earlier months keep their history. Resuming starts a new version in the current month. The months in between stay untracked and are left out of the history, not shown as zero.
+- Deleting a budget deletes all its versions and its history. Transactions are never affected.
+- Deleting a category deletes its budget, because a budget cannot exist without its category.
+- History shows up to 24 months, newest first.

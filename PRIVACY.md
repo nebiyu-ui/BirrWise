@@ -1,8 +1,8 @@
 # Privacy
 
-## Current version (0.7.0)
+## Current version (0.8.0)
 
-- The app stores what you enter in a local database on your phone: accounts (name, bank or wallet, type, opening balance, date, notes) and transactions (type, amount, date, account, category, description, person or business, notes, and whether it needs review).
+- The app stores what you enter in a local database on your phone: accounts (name, bank or wallet, type, opening balance, date, notes) and transactions (type, amount, date, account, category, description, person or business, notes, and whether it needs review), and budgets (category, monthly limit, alert share, and start and pause dates).
 - The database is a private file on the phone. It is not encrypted by the app and is not uploaded anywhere.
 - The app requests no runtime permissions and does not declare the internet permission.
 - Android automatic backup is turned off for the app.

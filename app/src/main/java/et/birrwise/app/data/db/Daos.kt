@@ -144,6 +144,12 @@ interface BudgetDao {
 
     @Query("SELECT * FROM budgets ORDER BY periodStart DESC")
     fun observeAll(): Flow<List<BudgetEntity>>
+
+    @Query("SELECT * FROM budgets WHERE categoryId = :categoryId ORDER BY periodStart")
+    suspend fun getByCategory(categoryId: String): List<BudgetEntity>
+
+    @Query("DELETE FROM budgets WHERE categoryId = :categoryId")
+    suspend fun deleteByCategory(categoryId: String): Int
 }
 
 @Dao

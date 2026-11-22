@@ -5,6 +5,7 @@ object Routes {
     const val ACCOUNT_ARG = "accountId"
     const val TRANSACTION_ARG = "transactionId"
     const val KIND_ARG = "kind"
+    const val CATEGORY_ARG = "categoryId"
 
     const val ACCOUNT_NEW = "account-new"
     const val ACCOUNT_DETAIL = "account/{$ACCOUNT_ARG}"
@@ -13,6 +14,10 @@ object Routes {
     /** Both arguments are optional: a starting account, and a starting kind of entry such as INCOME. */
     const val TRANSACTION_NEW = "transaction-new?$ACCOUNT_ARG={$ACCOUNT_ARG}&$KIND_ARG={$KIND_ARG}"
     const val TRANSACTION_EDIT = "transaction/{$TRANSACTION_ARG}"
+
+    const val BUDGET_NEW = "budget-new"
+    const val BUDGET_DETAIL = "budget/{$CATEGORY_ARG}"
+    const val BUDGET_EDIT = "budget/{$CATEGORY_ARG}/edit"
 
     fun accountDetail(accountId: String): String = "account/$accountId"
 
@@ -27,4 +32,8 @@ object Routes {
     }
 
     fun transactionEdit(transactionId: String): String = "transaction/$transactionId"
+
+    fun budgetDetail(categoryId: String): String = "budget/$categoryId"
+
+    fun budgetEdit(categoryId: String): String = "budget/$categoryId/edit"
 }

@@ -1,10 +1,13 @@
 package et.birrwise.app.data
 
 import et.birrwise.app.data.db.AccountEntity
+import et.birrwise.app.data.db.BudgetEntity
 import et.birrwise.app.data.db.CategoryEntity
 import et.birrwise.app.data.db.PersonEntity
 import et.birrwise.app.data.db.TransactionEntity
 import et.birrwise.app.domain.Account
+import et.birrwise.app.domain.Budget
+import et.birrwise.app.domain.BudgetPeriodType
 import et.birrwise.app.domain.Category
 import et.birrwise.app.domain.Money
 import et.birrwise.app.domain.Person
@@ -128,6 +131,38 @@ internal fun Person.toEntity(createdAt: Long, updatedAt: Long): PersonEntity = P
     displayName = displayName,
     notes = notes,
     isHidden = isHidden,
+    createdAt = createdAt,
+    updatedAt = updatedAt
+)
+
+internal fun BudgetEntity.toDomain(): Budget = Budget(
+    id = id,
+    categoryId = categoryId,
+    limit = Money(limitMinorUnits, currencyCode),
+    alertThresholdPercent = alertThresholdPercent,
+    periodStart = Instant.ofEpochMilli(periodStart),
+    periodEnd = periodEnd?.let { Instant.ofEpochMilli(it) },
+    active = active
+)
+
+/** Returns null for a stored row that is not a valid budget. The app cannot create such rows. */
+internal fun BudgetEntity.toDomainOrNull(): Budget? =
+    try {
+        toDomain()
+    } catch (e: IllegalArgumentException) {
+        null
+    }
+
+internal fun Budget.toEntity(createdAt: Long, updatedAt: Long): BudgetEntity = BudgetEntity(
+    id = id,
+    categoryId = categoryId,
+    limitMinorUnits = limit.minorUnits,
+    currencyCode = limit.currencyCode,
+    periodType = BudgetPeriodType.MONTHLY,
+    periodStart = periodStart.toEpochMilli(),
+    periodEnd = periodEnd?.toEpochMilli(),
+    alertThresholdPercent = alertThresholdPercent,
+    active = active,
     createdAt = createdAt,
     updatedAt = updatedAt
 )

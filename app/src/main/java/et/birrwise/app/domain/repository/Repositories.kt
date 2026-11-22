@@ -1,6 +1,8 @@
 package et.birrwise.app.domain.repository
 
 import et.birrwise.app.domain.Account
+import et.birrwise.app.domain.Budget
+import et.birrwise.app.domain.BudgetChange
 import et.birrwise.app.domain.Category
 import et.birrwise.app.domain.Person
 import et.birrwise.app.domain.Transaction
@@ -73,4 +75,17 @@ interface PersonRepository {
     suspend fun getPerson(id: String): Person?
     suspend fun createPerson(person: Person)
     suspend fun updatePerson(person: Person)
+}
+
+interface BudgetRepository {
+    /** Every version of every budget, including paused and replaced ones. */
+    fun observeBudgets(): Flow<List<Budget>>
+
+    suspend fun getBudgetsForCategory(categoryId: String): List<Budget>
+
+    /** Applies all the changes together, or none of them. */
+    suspend fun apply(changes: List<BudgetChange>)
+
+    /** Deletes every version of a category's budget, including its history. */
+    suspend fun deleteForCategory(categoryId: String)
 }

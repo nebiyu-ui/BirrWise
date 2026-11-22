@@ -8,15 +8,6 @@ import et.birrwise.app.ui.components.EmptyState
 import et.birrwise.app.ui.icon
 
 @Composable
-fun BudgetsScreen() {
-    EmptyState(
-        icon = TopLevelDestination.BUDGETS.icon(),
-        title = stringResource(R.string.budgets_empty_title),
-        message = stringResource(R.string.budgets_empty_message)
-    )
-}
-
-@Composable
 fun PeopleScreen() {
     EmptyState(
         icon = TopLevelDestination.PEOPLE.icon(),

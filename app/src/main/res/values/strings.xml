@@ -204,4 +204,53 @@
     <string name="sort_oldest">Oldest first</string>
     <string name="sort_largest">Largest amount first</string>
     <string name="sort_smallest">Smallest amount first</string>
+
+    <!-- Budgets -->
+    <string name="budgets_error">Something went wrong while reading your budgets. Close and reopen BirrWise to try again.</string>
+    <string name="budgets_add">Add budget</string>
+    <string name="budgets_none_this_month">No budget was active in this month.</string>
+    <string name="budgets_total_title">All budgets together</string>
+    <string name="budgets_spent_of">%1$s of %2$s</string>
+    <string name="budgets_percent_used">%d%%</string>
+    <string name="budgets_left">%s left</string>
+    <string name="budgets_near_limit">Close to your limit, %s left</string>
+    <string name="budgets_over_by">Over by %s</string>
+    <string name="budgets_review_entries">Review entries</string>
+    <string name="budgets_explanation">Counts confirmed expenses and fees on active accounts, minus refunds. Transfers are not counted.</string>
+    <string name="budgets_pending_note">%d entries need review and are not counted yet.</string>
+    <string name="budgets_unbudgeted_note">%s was spent in categories without a budget.</string>
+    <string name="budgets_paused_title">Paused budgets</string>
+    <string name="budgets_paused_label">Paused</string>
+
+    <string name="budget_title_new">New budget</string>
+    <string name="budget_title_edit">Edit budget</string>
+    <string name="budget_not_found">This budget no longer exists.</string>
+    <string name="budget_category">Category</string>
+    <string name="budget_no_categories_left">Every expense category already has a budget.</string>
+    <string name="budget_limit_label">Monthly limit (ETB)</string>
+    <string name="budget_alert_label">Tell me when I have used</string>
+    <string name="budget_alert_hint">You will see a gentle heads-up once spending reaches this share of the limit.</string>
+    <string name="budget_starts_note">The budget starts this month and repeats every month.</string>
+    <string name="budget_changes_note">Changes apply from this month. Earlier months keep the limit they had.</string>
+    <string name="budget_save_failed">Could not save the budget. Please try again.</string>
+    <string name="budget_action_failed">Could not change the budget. Please try again.</string>
+    <string name="budget_monthly_limit">Monthly limit</string>
+    <string name="budget_alert_at">Heads-up at %d%% used</string>
+    <string name="budget_status_ongoing">Active every month</string>
+    <string name="budget_status_paused">Paused. It is not tracked until you resume it.</string>
+    <string name="budget_since">Tracked since %s</string>
+    <string name="budget_edit">Edit budget</string>
+    <string name="budget_pause">Pause budget</string>
+    <string name="budget_resume">Resume budget</string>
+    <string name="budget_delete">Delete budget</string>
+    <string name="budget_delete_title">Delete this budget?</string>
+    <string name="budget_delete_message">The budget and its monthly history for this category are deleted. Your transactions are not affected.</string>
+    <string name="budget_history_title">Month by month</string>
+    <string name="budget_history_empty">No months to show yet.</string>
+
+    <string name="error_budget_category_required">Choose a category.</string>
+    <string name="error_budget_category_not_expense">Budgets are for expense categories.</string>
+    <string name="error_budget_category_has_budget">This category already has a budget.</string>
+    <string name="error_budget_limit_required">Enter a monthly limit.</string>
+    <string name="error_budget_threshold_invalid">Choose a share between 1 and 100.</string>
 </resources>

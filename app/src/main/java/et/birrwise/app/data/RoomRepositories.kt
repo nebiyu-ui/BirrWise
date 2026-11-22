@@ -4,11 +4,14 @@ import androidx.room.withTransaction
 import et.birrwise.app.data.db.BirrWiseDatabase
 import et.birrwise.app.data.db.TransactionEntity
 import et.birrwise.app.domain.Account
+import et.birrwise.app.domain.Budget
+import et.birrwise.app.domain.BudgetChange
 import et.birrwise.app.domain.Category
 import et.birrwise.app.domain.Person
 import et.birrwise.app.domain.Transaction
 import et.birrwise.app.domain.TransactionType
 import et.birrwise.app.domain.repository.AccountRepository
+import et.birrwise.app.domain.repository.BudgetRepository
 import et.birrwise.app.domain.repository.CategoryDeleteResult
 import et.birrwise.app.domain.repository.CategoryRepository
 import et.birrwise.app.domain.repository.PersonRepository
@@ -229,5 +232,40 @@ class RoomPersonRepository(
         val existing = dao.getById(person.id)
             ?: throw IllegalArgumentException("Person ${person.id} does not exist")
         dao.update(person.toEntity(createdAt = existing.createdAt, updatedAt = clock.millis()))
+    }
+}
+
+class RoomBudgetRepository(
+    private val database: BirrWiseDatabase,
+    private val clock: Clock = Clock.systemUTC()
+) : BudgetRepository {
+
+    private val dao = database.budgetDao()
+
+    override fun observeBudgets(): Flow<List<Budget>> =
+        dao.observeAll().map { rows -> rows.mapNotNull { it.toDomainOrNull() } }
+
+    override suspend fun getBudgetsForCategory(categoryId: String): List<Budget> =
+        dao.getByCategory(categoryId).mapNotNull { it.toDomainOrNull() }
+
+    override suspend fun apply(changes: List<BudgetChange>) {
+        if (changes.isEmpty()) return
+        val now = clock.millis()
+        database.withTransaction {
+            for (change in changes) {
+                when (change) {
+                    is BudgetChange.Insert -> dao.insert(change.budget.toEntity(now, now))
+                    is BudgetChange.Update -> {
+                        val existing = dao.getById(change.budget.id)
+                            ?: throw IllegalArgumentException("Budget ${change.budget.id} does not exist")
+                        dao.update(change.budget.toEntity(existing.createdAt, now))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun deleteForCategory(categoryId: String) {
+        dao.deleteByCategory(categoryId)
     }
 }

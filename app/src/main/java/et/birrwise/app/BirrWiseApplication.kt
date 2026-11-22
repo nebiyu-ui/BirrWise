@@ -3,12 +3,14 @@ package et.birrwise.app
 import android.app.Application
 import android.content.Context
 import et.birrwise.app.data.RoomAccountRepository
+import et.birrwise.app.data.RoomBudgetRepository
 import et.birrwise.app.data.RoomCategoryRepository
 import et.birrwise.app.data.RoomPersonRepository
 import et.birrwise.app.data.RoomTransactionRepository
 import et.birrwise.app.data.db.BirrWiseDatabase
 import et.birrwise.app.domain.TransactionFilter
 import et.birrwise.app.domain.repository.AccountRepository
+import et.birrwise.app.domain.repository.BudgetRepository
 import et.birrwise.app.domain.repository.CategoryRepository
 import et.birrwise.app.domain.repository.PersonRepository
 import et.birrwise.app.domain.repository.TransactionRepository
@@ -27,6 +29,7 @@ class AppContainer(context: Context) {
     val transactionRepository: TransactionRepository by lazy { RoomTransactionRepository(database) }
     val categoryRepository: CategoryRepository by lazy { RoomCategoryRepository(database) }
     val personRepository: PersonRepository by lazy { RoomPersonRepository(database) }
+    val budgetRepository: BudgetRepository by lazy { RoomBudgetRepository(database) }
 
     /**
      * The search and filters of the Transactions list. They live here so that other screens, such as
