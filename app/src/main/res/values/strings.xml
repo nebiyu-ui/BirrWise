@@ -253,4 +253,43 @@
     <string name="error_budget_category_has_budget">This category already has a budget.</string>
     <string name="error_budget_limit_required">Enter a monthly limit.</string>
     <string name="error_budget_threshold_invalid">Choose a share between 1 and 100.</string>
+
+    <!-- Backup and restore -->
+    <string name="home_backup_button">Backup and restore</string>
+    <string name="home_restore_backup">Restore from a backup</string>
+    <string name="backup_title">Backup and restore</string>
+    <string name="backup_intro">Your data is stored only on this phone. If you lose the phone or uninstall BirrWise, it is gone. A backup is a file you keep somewhere safe.</string>
+    <string name="backup_sensitive">A backup holds your accounts, balances, and transactions. Treat it like a bank statement. BirrWise never uploads it anywhere: you choose where it is saved.</string>
+    <string name="backup_last">Last backup: %s</string>
+    <string name="backup_last_never">You have not made a backup yet.</string>
+    <string name="backup_create_title">Create a backup</string>
+    <string name="backup_protect">Protect with a passphrase</string>
+    <string name="backup_protect_hint">Recommended. Anyone who finds the file still cannot read it.</string>
+    <string name="backup_passphrase">Passphrase</string>
+    <string name="backup_passphrase_again">Type the passphrase again</string>
+    <string name="backup_passphrase_warning">Use at least %d characters. If you forget the passphrase, the backup cannot be opened and BirrWise cannot recover it.</string>
+    <string name="backup_plain_warning">Without a passphrase, anyone who gets the file can read all your financial details.</string>
+    <string name="backup_passphrase_short">The passphrase must have at least %d characters.</string>
+    <string name="backup_passphrase_mismatch">The two passphrases do not match.</string>
+    <string name="backup_create_button">Create backup</string>
+    <string name="backup_restore_title">Restore from a backup</string>
+    <string name="backup_restore_hint">Choose a backup file. You will see what is in it before anything changes. Restoring replaces everything in BirrWise.</string>
+    <string name="backup_restore_button">Choose a backup file</string>
+    <string name="backup_enter_passphrase_title">This backup is protected</string>
+    <string name="backup_enter_passphrase_message">Type the passphrase you used when you made it.</string>
+    <string name="backup_wrong_passphrase">That passphrase did not work, or the file was changed.</string>
+    <string name="backup_open">Open</string>
+    <string name="backup_preview_title">Restore this backup?</string>
+    <string name="backup_preview_from">Backup made on %1$s: %2$d accounts, %3$d transactions, %4$d categories, %5$d budgets.</string>
+    <string name="backup_preview_replace">This replaces everything in BirrWise now (%1$d accounts, %2$d transactions). It cannot be undone.</string>
+    <string name="backup_restore_confirm">Replace my data</string>
+    <string name="backup_done_summary">%1$d accounts and %2$d transactions saved.</string>
+    <string name="backup_msg_export_done">Backup saved. Keep the file somewhere safe, away from this phone if you can.</string>
+    <string name="backup_msg_export_failed">The backup could not be saved. Nothing was changed. Please try again, or choose another place.</string>
+    <string name="backup_msg_restore_done">Restored. Your data is back.</string>
+    <string name="backup_msg_restore_failed">The restore failed and nothing was changed.</string>
+    <string name="backup_msg_not_a_backup">That file is not a BirrWise backup.</string>
+    <string name="backup_msg_unsupported">That backup was made by a newer version of BirrWise. Update the app and try again.</string>
+    <string name="backup_msg_corrupt">That backup is damaged and cannot be used. Nothing was changed.</string>
+    <string name="backup_msg_unreadable">The file could not be opened.</string>
 </resources>

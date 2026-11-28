@@ -13,8 +13,9 @@ A phase counts as done only when it compiles, its tests pass, and the GitHub Act
 | 4b | Manual transactions: income, expense, transfer, fee, refund, review state | Done (checked on a phone) |
 | 5a | Home overview: month totals, balance, accounts, recent entries, warnings, quick actions | Done (checked on a phone) |
 | 5b | Transactions: search, filters, sorting, grouping by day | Done (checked on a phone) |
-| 6a | Monthly budgets: limits, progress, alerts, pause, history | In progress (waiting for build result) |
+| 6a | Monthly budgets: limits, progress, alerts, pause, history | Done (checked on a phone) |
 | 6b | Category management: add, rename, delete custom categories | Planned |
+| 6c | Backup and restore: protected backup file, safe restore | In progress (waiting for build result) |
 | 7 | CSV import and export, duplicate detection | Planned |
 | 8 | SMS message parsing | Planned |
 | 9 | PDF statements and account reconciliation | Planned |

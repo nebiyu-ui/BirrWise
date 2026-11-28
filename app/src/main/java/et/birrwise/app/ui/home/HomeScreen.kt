@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -69,7 +70,8 @@ fun HomeScreen(
     onReviewPending: () -> Unit,
     onReviewTransfers: () -> Unit,
     onOpenAccount: (String) -> Unit,
-    onOpenTransaction: (String) -> Unit
+    onOpenTransaction: (String) -> Unit,
+    onOpenBackup: () -> Unit
 ) {
     val container = LocalContext.current.appContainer()
     val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.factory(container))
@@ -94,7 +96,9 @@ fun HomeScreen(
                         title = stringResource(R.string.home_empty_title),
                         message = stringResource(R.string.home_empty_message),
                         actionLabel = stringResource(R.string.accounts_add),
-                        onAction = onAddAccount
+                        onAction = onAddAccount,
+                        secondaryActionLabel = stringResource(R.string.home_restore_backup),
+                        onSecondaryAction = onOpenBackup
                     )
                 } else {
                     HomeContent(
@@ -110,7 +114,8 @@ fun HomeScreen(
                         onReviewPending = onReviewPending,
                         onReviewTransfers = onReviewTransfers,
                         onOpenAccount = onOpenAccount,
-                        onOpenTransaction = onOpenTransaction
+                        onOpenTransaction = onOpenTransaction,
+                        onOpenBackup = onOpenBackup
                     )
                 }
             }
@@ -132,14 +137,27 @@ private fun HomeContent(
     onReviewPending: () -> Unit,
     onReviewTransfers: () -> Unit,
     onOpenAccount: (String) -> Unit,
-    onOpenTransaction: (String) -> Unit
+    onOpenTransaction: (String) -> Unit,
+    onOpenBackup: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item { ScreenHeader(title = stringResource(R.string.nav_home)) }
+        item {
+            ScreenHeader(
+                title = stringResource(R.string.nav_home),
+                actions = {
+                    IconButton(onClick = onOpenBackup) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.home_backup_button)
+                        )
+                    }
+                }
+            )
+        }
 
         item {
             MonthSelector(

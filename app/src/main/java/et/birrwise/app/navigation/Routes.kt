@@ -15,6 +15,8 @@ object Routes {
     const val TRANSACTION_NEW = "transaction-new?$ACCOUNT_ARG={$ACCOUNT_ARG}&$KIND_ARG={$KIND_ARG}"
     const val TRANSACTION_EDIT = "transaction/{$TRANSACTION_ARG}"
 
+    const val BACKUP = "backup"
+
     const val BUDGET_NEW = "budget-new"
     const val BUDGET_DETAIL = "budget/{$CATEGORY_ARG}"
     const val BUDGET_EDIT = "budget/{$CATEGORY_ARG}/edit"

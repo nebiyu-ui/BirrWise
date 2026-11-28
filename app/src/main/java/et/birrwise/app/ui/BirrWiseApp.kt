@@ -29,6 +29,7 @@ import et.birrwise.app.ui.accounts.AccountDetailScreen
 import et.birrwise.app.ui.accounts.appContainer
 import et.birrwise.app.ui.accounts.AccountEditorScreen
 import et.birrwise.app.ui.accounts.AccountsScreen
+import et.birrwise.app.ui.backup.BackupScreen
 import et.birrwise.app.ui.budgets.BudgetDetailScreen
 import et.birrwise.app.ui.budgets.BudgetEditorScreen
 import et.birrwise.app.ui.budgets.BudgetsScreen
@@ -115,7 +116,8 @@ fun BirrWiseApp() {
                         navigateToTab(TopLevelDestination.TRANSACTIONS.route)
                     },
                     onOpenAccount = { id -> navController.navigate(Routes.accountDetail(id)) },
-                    onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) }
+                    onOpenTransaction = { id -> navController.navigate(Routes.transactionEdit(id)) },
+                    onOpenBackup = { navController.navigate(Routes.BACKUP) }
                 )
             }
             composable(TopLevelDestination.TRANSACTIONS.route) {
@@ -190,6 +192,9 @@ fun BirrWiseApp() {
                     presetKind = entry.arguments?.getString(Routes.KIND_ARG),
                     onDone = { navController.popBackStack() }
                 )
+            }
+            composable(Routes.BACKUP) {
+                BackupScreen(onBack = { navController.popBackStack() })
             }
             composable(Routes.BUDGET_NEW) {
                 BudgetEditorScreen(

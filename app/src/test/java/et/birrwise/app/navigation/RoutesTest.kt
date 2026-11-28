@@ -35,6 +35,7 @@ class RoutesTest {
         assertEquals("budget/{categoryId}", Routes.BUDGET_DETAIL)
         assertEquals("budget/{categoryId}/edit", Routes.BUDGET_EDIT)
         assertEquals("budget-new", Routes.BUDGET_NEW)
+        assertEquals("backup", Routes.BACKUP)
         assertEquals("accountId", Routes.ACCOUNT_ARG)
         assertEquals("transactionId", Routes.TRANSACTION_ARG)
         assertEquals("kind", Routes.KIND_ARG)
@@ -51,7 +52,8 @@ class RoutesTest {
             Routes.TRANSACTION_EDIT,
             Routes.BUDGET_NEW,
             Routes.BUDGET_DETAIL,
-            Routes.BUDGET_EDIT
+            Routes.BUDGET_EDIT,
+            Routes.BACKUP
         )
         val tabs = TopLevelDestination.entries.map { it.route }
         assertTrue(extra.none { it in tabs })

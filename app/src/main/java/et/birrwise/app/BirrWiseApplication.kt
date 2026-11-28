@@ -7,6 +7,10 @@ import et.birrwise.app.data.RoomBudgetRepository
 import et.birrwise.app.data.RoomCategoryRepository
 import et.birrwise.app.data.RoomPersonRepository
 import et.birrwise.app.data.RoomTransactionRepository
+import et.birrwise.app.data.backup.BackupService
+import et.birrwise.app.data.backup.ContentResolverFileStore
+import et.birrwise.app.data.backup.RoomBackupRepository
+import et.birrwise.app.data.backup.SharedPreferencesStatusStore
 import et.birrwise.app.data.db.BirrWiseDatabase
 import et.birrwise.app.domain.TransactionFilter
 import et.birrwise.app.domain.repository.AccountRepository
@@ -30,6 +34,23 @@ class AppContainer(context: Context) {
     val categoryRepository: CategoryRepository by lazy { RoomCategoryRepository(database) }
     val personRepository: PersonRepository by lazy { RoomPersonRepository(database) }
     val budgetRepository: BudgetRepository by lazy { RoomBudgetRepository(database) }
+
+    /** Saves and restores backups. Files are chosen by the person with the system file picker. */
+    val backupService: BackupService by lazy {
+        BackupService(
+            repository = RoomBackupRepository(database),
+            files = ContentResolverFileStore(appContext.contentResolver),
+            status = SharedPreferencesStatusStore(appContext),
+            appVersion = appVersionName()
+        )
+    }
+
+    private fun appVersionName(): String =
+        try {
+            appContext.packageManager.getPackageInfo(appContext.packageName, 0).versionName ?: ""
+        } catch (e: Exception) {
+            ""
+        }
 
     /**
      * The search and filters of the Transactions list. They live here so that other screens, such as

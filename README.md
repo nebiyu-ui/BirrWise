@@ -4,7 +4,7 @@ Personal finance and expense tracker for Ethiopia. Built to work offline, with n
 
 ## Status
 
-Early development (version 0.8.0). You can create, edit, and archive accounts, and record income, expenses, fees, refunds, and transfers by hand. Each account shows a tracked balance calculated from your records. The Home tab shows your total balance, a month of income and expenses, your accounts, recent entries, and warnings. The Transactions tab can be searched, filtered, and sorted. The Budgets tab tracks a monthly limit for each expense category, with progress, gentle alerts, pausing, and a month-by-month history. Imports, SMS reading, and managing your own categories are planned and are not built yet. The People tab is still an empty screen.
+Early development (version 0.9.0). You can create, edit, and archive accounts, and record income, expenses, fees, refunds, and transfers by hand. Each account shows a tracked balance calculated from your records. The Home tab shows your total balance, a month of income and expenses, your accounts, recent entries, and warnings. The Transactions tab can be searched, filtered, and sorted. The Budgets tab tracks a monthly limit for each expense category, with progress, gentle alerts, pausing, and a month-by-month history. Backup and restore (from the gear button on Home) saves everything to a file you choose, protected by a passphrase, and restores it safely. Imports, SMS reading, and managing your own categories are planned and are not built yet. The People tab is still an empty screen.
 
 ## Technology
 

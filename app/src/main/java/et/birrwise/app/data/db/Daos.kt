@@ -10,6 +10,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AccountDao {
+    @Query("SELECT * FROM accounts")
+    suspend fun getAll(): List<AccountEntity>
+
+    @Query("DELETE FROM accounts")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(account: AccountEntity)
 
@@ -34,6 +40,16 @@ interface AccountDao {
 
 @Dao
 interface TransactionDao {
+    @Query("SELECT * FROM transactions")
+    suspend fun getAll(): List<TransactionEntity>
+
+    @Query("DELETE FROM transactions")
+    suspend fun deleteAll(): Int
+
+    /** Lets all rows be deleted at once even when a reversal points to the entry it reverses. */
+    @Query("UPDATE transactions SET reversesTransactionId = NULL")
+    suspend fun clearReversalLinks(): Int
+
     @Insert
     suspend fun insert(transaction: TransactionEntity)
 
@@ -64,6 +80,16 @@ interface TransactionDao {
 
 @Dao
 interface CategoryDao {
+    @Query("SELECT * FROM categories")
+    suspend fun getAll(): List<CategoryEntity>
+
+    @Query("DELETE FROM categories")
+    suspend fun deleteAll(): Int
+
+    /** Lets all rows be deleted at once even when a category has a parent. */
+    @Query("UPDATE categories SET parentCategoryId = NULL")
+    suspend fun clearParents(): Int
+
     @Insert
     suspend fun insert(category: CategoryEntity)
 
@@ -91,6 +117,12 @@ interface CategoryDao {
 
 @Dao
 interface PersonDao {
+    @Query("SELECT * FROM people")
+    suspend fun getAll(): List<PersonEntity>
+
+    @Query("DELETE FROM people")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(person: PersonEntity)
 
@@ -112,6 +144,12 @@ interface PersonDao {
 
 @Dao
 interface ImportBatchDao {
+    @Query("SELECT * FROM import_batches")
+    suspend fun getAll(): List<ImportBatchEntity>
+
+    @Query("DELETE FROM import_batches")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(batch: ImportBatchEntity)
 
@@ -130,6 +168,12 @@ interface ImportBatchDao {
 
 @Dao
 interface BudgetDao {
+    @Query("SELECT * FROM budgets")
+    suspend fun getAll(): List<BudgetEntity>
+
+    @Query("DELETE FROM budgets")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(budget: BudgetEntity)
 
@@ -154,6 +198,12 @@ interface BudgetDao {
 
 @Dao
 interface CategoryRuleDao {
+    @Query("SELECT * FROM category_rules")
+    suspend fun getAll(): List<CategoryRuleEntity>
+
+    @Query("DELETE FROM category_rules")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(rule: CategoryRuleEntity)
 
@@ -172,6 +222,12 @@ interface CategoryRuleDao {
 
 @Dao
 interface SavingsGoalDao {
+    @Query("SELECT * FROM savings_goals")
+    suspend fun getAll(): List<SavingsGoalEntity>
+
+    @Query("DELETE FROM savings_goals")
+    suspend fun deleteAll(): Int
+
     @Insert
     suspend fun insert(goal: SavingsGoalEntity)
 
